@@ -1,0 +1,5 @@
+aiogram>=3.x
+aiohttp
+python-dotenv
+SQLAlchemy
+aiosqlite
