@@ -1,32 +1,18 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 
+load_dotenv()  # загружаем переменные из .env
+# app/core/config.py
+import os, json
+from pathlib import Path
+from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # подхватываем .env
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID")) if os.getenv("ADMIN_ID") else None
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./devatapath.db")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-
-
-MINI_COURSES = {
-    "1": {
-        "title":    "Основы дыхания",
-        "desc":     "В этом курсе вы научитесь основам осознанного дыхания...",
-        "price":    "199 ₽",
-        "pay_link":     "https://pay.example.com/course1"
-    },
-    "2": {
-        "title":    "Утренняя энергетическая зарядка",
-        "desc":     "Утренний комплекс упражнений для бодрости и энергии...",
-        "price":    "299 ₽",
-        "pay_link":     "https://pay.example.com/course2"
-    },
-    "3": {
-        "title":    "Простые Qigong-упражнения",
-        "desc":     "Набор базовых упражнений цигун для начинающих...",
-        "price":    "249 ₽",
-        "pay_link":     "https://pay.example.com/course3"
-    },
-}
+# загружаем мини-курсы из внешнего файла
+_config_dir = Path(__file__).parent
+with open(_config_dir / "mini_courses.json", encoding="utf-8") as f:
+    MINI_COURSES = json.load(f)
