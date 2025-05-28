@@ -6,7 +6,7 @@ import logging
 from aiogram import Bot, Dispatcher
 
 # Импортируем токен вашего бота из файла конфигурации (config.py)
-from app.core.settings import settings, MINI_COURSES_FILE
+from app.core.settings import settings, MINI_COURSES
 
 # Подключаем модуль-обработчик для команды /start
 from app.bot.handlers.menu_handlers import router as menu_router
