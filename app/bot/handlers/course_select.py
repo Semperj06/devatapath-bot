@@ -3,7 +3,7 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.keyboards.menu import main_menu        # твоя функция для главного меню (не меняли)
-from app.core.settings import MINI_COURSES             # словарь с данными о мини-курсах
+from app.core.settings import MINI_COURSES_FILE             # словарь с данными о мини-курсах
 
 router = Router()  # отдельный роутер для мини-курсов
 
@@ -20,7 +20,7 @@ async def mini_detail(callback: types.CallbackQuery):
 
     # 2) получаем ID курса
     course_id = callback.data.split("_", 1)[1]
-    course = MINI_COURSES.get(course_id)
+    course = MINI_COURSES_FILE.get(course_id)
     if not course:
         return await callback.message.answer("❌ Ошибка: курс не найден.")
 
@@ -79,7 +79,7 @@ async def pay_handler(callback: types.CallbackQuery):
     """
     await callback.answer()
     course_id = callback.data.split("_", 1)[1]
-    course = MINI_COURSES.get(course_id)
+    course = MINI_COURSES_FILE.get(course_id)
     if not course:
         return await callback.message.answer("❌ Курс не найден.")
 
@@ -105,7 +105,7 @@ async def mini_detail(callback: types.CallbackQuery):
 
     # 2) получаем ID курса
     course_id = callback.data.split("_", 1)[1]
-    course = MINI_COURSES.get(course_id)
+    course = MINI_COURSES_FILE.get(course_id)
     if not course:
         return await callback.message.answer("❌ Ошибка: курс не найден.")
 

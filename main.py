@@ -6,7 +6,7 @@ import logging
 from aiogram import Bot, Dispatcher
 
 # Импортируем токен вашего бота из файла конфигурации (config.py)
-from app.core.settings import BOT_TOKEN
+from app.core.settings import settings, MINI_COURSES_FILE
 
 # Подключаем модуль-обработчик для команды /start
 from app.bot.handlers.menu_handlers import router as menu_router
@@ -19,12 +19,11 @@ from app.db.base import init_db
 # -------------------- Настройка бота и диспетчера --------------------
 
 # Создаём экземпляр бота: указываем токен, полученный от BotFather
-bot = Bot(token=BOT_TOKEN)
-
+bot = Bot(token=settings.BOT_TOKEN)
 # Создаём диспетчер, который будет «ловить» все входящие обновления
 dp = Dispatcher()
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 
 # -------------------- Функция при старте --------------------

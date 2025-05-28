@@ -1,7 +1,7 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from app.core.settings import MINI_COURSES
-from app.db.base    import SessionLocal
+from app.core.settings import MINI_COURSES_FILE
+from app.db.base import SessionLocal
 #from app.db.models  import PaymentProof, Subscription
 from app.keyboards.menu import main_menu
 import datetime
@@ -21,7 +21,7 @@ class PaymentStates(StatesGroup):
 async def ask_confirm_payment(call: types.CallbackQuery, state: FSMContext):
     await call.answer()
     course_id = call.data.split("_", 1)[1]
-    course = MINI_COURSES.get(course_id)
+    course = MINI_COURSES_FILE.get(course_id)
     if not course:
         return await call.message.answer("❌ Курс не найден.")
 
