@@ -5,15 +5,16 @@ import asyncio
 from aiogram import Bot, Dispatcher
 
 # Импортируем токен вашего бота из файла конфигурации (config.py)
-from config import BOT_TOKEN
+from app.core.config import BOT_TOKEN
 
 # Подключаем модуль-обработчик для команды /start
-from handlers.start import router as start_router
-from handlers.menu_handlers import router as menu_router
-from handlers.course_select import router as course_router
-from database.db import init_db
-from handlers.payment import router as payment_router
-
+from app.bot.handlers.start import router as start_router
+from app.bot.handlers.menu_handlers import router as menu_router
+from app.bot.handlers.course_select import router as course_router
+from app.db.base import init_db
+from app.bot.handlers.payment import router as payment_router
+from app.core.config import Settings
+from app.bot.handlers.start import router as start_router
 
 
 # -------------------- Настройка бота и диспетчера --------------------

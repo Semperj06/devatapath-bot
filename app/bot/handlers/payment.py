@@ -1,8 +1,8 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from config import MINI_COURSES
-from database.db import SessionLocal, PaymentProof
-from keyboards.menu import main_menu
+from app.core.config import MINI_COURSES
+from app.db.base import SessionLocal, PaymentProof
+from app.keyboards.menu import main_menu
 import datetime
 from aiogram.fsm.context import FSMContext
 from aiogram.filters.state import StateFilter

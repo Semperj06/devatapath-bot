@@ -2,8 +2,8 @@
 
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from keyboards.menu import main_menu        # твоя функция для главного меню (не меняли)
-from config import MINI_COURSES             # словарь с данными о мини-курсах
+from app.keyboards.menu import main_menu        # твоя функция для главного меню (не меняли)
+from app.core.config import MINI_COURSES             # словарь с данными о мини-курсах
 
 router = Router()  # отдельный роутер для мини-курсов
 
@@ -65,7 +65,7 @@ async def back_to_list_handler(callback: types.CallbackQuery):
     await callback.answer()  # убираем «крутилку»
 
     # импорт здесь, чтобы не было циклических зависимостей при старте
-    from handlers.menu_handlers import mini_courses_handler
+    from app.bot.handlers.menu_handlers import mini_courses_handler
 
     # mini_courses_handler ожидает Message, а у нас CallbackQuery, поэтому
     # передаем callback.message

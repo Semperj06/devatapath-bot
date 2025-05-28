@@ -1,6 +1,6 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder  # Builder для inline-клавиатур
-from keyboards.menu import main_menu                        # твоя функция для главного меню
+from app.keyboards.menu import main_menu                        # твоя функция для главного меню
 
 router = Router()
 
