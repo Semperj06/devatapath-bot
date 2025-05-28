@@ -1,7 +1,8 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
-from app.core.config import MINI_COURSES
-from app.db.base import SessionLocal, PaymentProof
+from app.core.settings import MINI_COURSES
+from app.db.base    import SessionLocal
+#from app.db.models  import PaymentProof, Subscription
 from app.keyboards.menu import main_menu
 import datetime
 from aiogram.fsm.context import FSMContext

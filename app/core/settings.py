@@ -1,10 +1,7 @@
-import json, os
-from dotenv import load_dotenv
-
-load_dotenv()  # загружаем переменные из .env
-# app/core/config.py
 import os, json
-from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()  # загружаем переменные из .env
+
 from dotenv import load_dotenv
 
 load_dotenv()  # подхватываем .env

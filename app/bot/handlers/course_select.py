@@ -3,7 +3,7 @@
 from aiogram import Router, types
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 from app.keyboards.menu import main_menu        # твоя функция для главного меню (не меняли)
-from app.core.config import MINI_COURSES             # словарь с данными о мини-курсах
+from app.core.settings import MINI_COURSES             # словарь с данными о мини-курсах
 
 router = Router()  # отдельный роутер для мини-курсов
 
@@ -83,7 +83,7 @@ async def pay_handler(callback: types.CallbackQuery):
     if not course:
         return await callback.message.answer("❌ Курс не найден.")
 
-    # Если у тебя в config.py ключ называется 'link' или 'pay_link',
+    # Если у тебя в settings.py ключ называется 'link' или 'pay_link',
     # проверь чтобы словарь MINI_COURSES тоже содержал этот ключ!
     pay_link = course.get("pay_link") or course.get("link")
     if not pay_link:
