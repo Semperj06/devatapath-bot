@@ -8,12 +8,10 @@ from aiogram import Bot, Dispatcher
 from app.core.config import BOT_TOKEN
 
 # Подключаем модуль-обработчик для команды /start
-from app.bot.handlers.start import router as start_router
 from app.bot.handlers.menu_handlers import router as menu_router
 from app.bot.handlers.course_select import router as course_router
 from app.db.base import init_db
 from app.bot.handlers.payment import router as payment_router
-from app.core.config import Settings
 from app.bot.handlers.start import router as start_router
 
 
@@ -27,6 +25,7 @@ dp = Dispatcher()
 
 # -------------------- Функция при старте --------------------
 async def on_startup():
+    await bot.delete_webhook(drop_pending_updates=True)
     init_db()
     """
     Эта функция выполняется один раз при запуске поллинга.
