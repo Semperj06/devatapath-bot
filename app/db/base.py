@@ -1,36 +1,30 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.orm import declarative_base, sessionmaker
-from sqlalchemy import create_engine
-import datetime
-import os
-
+# database/db.py
 from sqlalchemy import (
     create_engine, Column, Integer, String, DateTime, Boolean
 )
 from sqlalchemy.orm import declarative_base, sessionmaker
+from config import DATABASE_URL
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./devatapath.db")
-Base        = declarative_base()
-engine      = create_engine(DATABASE_URL, echo=False, future=True)
-SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
+# 📦 Базовый класс для всех моделей
+Base = declarative_base()
 
-class Subscription(Base):
-    __tablename__ = "subscriptions"
-    id         = Column(Integer, primary_key=True, index=True)
-    user_id    = Column(Integer, index=True, nullable=False)
-    course_id  = Column(String, nullable=False)
-    starts_at  = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
-    expires_at = Column(DateTime, nullable=False)
-    active     = Column(Boolean, default=True, nullable=False)
+# ⚙️ Синхронный движок
+engine = create_engine(
+    DATABASE_URL,        # например "sqlite:///./devatapath.db"
+    echo=False,          # отключаем вывод SQL в консоль
+    future=True,         # API SQLAlchemy 2.x
+)
 
-class PaymentProof(Base):
-    __tablename__ = "payment_proofs"
-    id        = Column(Integer, primary_key=True, index=True)
-    user_id   = Column(Integer, index=True, nullable=False)
-    course_id = Column(String, nullable=False)
-    file_id   = Column(String, nullable=False)
-    timestamp = Column(DateTime, default=datetime.datetime.utcnow, nullable=False)
-    status    = Column(String, default="pending", nullable=False)
+# 🔌 Фабрика сессий
+SessionLocal = sessionmaker(
+    bind=engine,
+    autocommit=False,
+    autoflush=False,
+)
 
-def init_db():
+def init_db() -> None:
+    """
+    Создаёт все таблицы, описанные в моделях, если их ещё нет.
+    Вызывается один раз при старте приложения.
+    """
     Base.metadata.create_all(bind=engine)
