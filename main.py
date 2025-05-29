@@ -6,14 +6,14 @@ import logging
 from aiogram import Bot, Dispatcher
 
 # Импортируем токен вашего бота из файла конфигурации (config.py)
-from app.core.settings import settings, MINI_COURSES
+from app.core.settings import settings
 
 # Подключаем модуль-обработчик для команды /start
 from app.bot.handlers.menu_handlers import router as menu_router
 from app.bot.handlers.course_select import router as course_router
-from app.bot.handlers.payment import router as payment_router
 from app.bot.handlers.start import router as start_router
 from app.db.base import init_db
+from app.bot.handlers.payment import router as payment_router
 
 
 # -------------------- Настройка бота и диспетчера --------------------
@@ -45,8 +45,6 @@ async def main():
     dp.startup.register(on_startup)
     dp.include_router(course_router)
     dp.include_router(payment_router)
-    # Запускаем «долгий» метод запуска бота через поллинг
-    # Благодаря await, event loop не блокируется
     await dp.start_polling(bot)
 
 # -------------------- Запуск скрипта --------------------

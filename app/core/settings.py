@@ -1,3 +1,4 @@
+# app/core/settings.py
 import os, json
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 
-# сразу читаем JSON и сохраняем в отдельную переменную MINI_COURSES
+# загружаем мини-курсы и делаем их доступными как константу
 with open(settings.MINI_COURSES_FILE, encoding="utf-8") as f:
     MINI_COURSES = json.load(f)
 
