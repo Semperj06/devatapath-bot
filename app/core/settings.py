@@ -8,7 +8,7 @@ load_dotenv()
 class Settings(BaseSettings):
     BOT_TOKEN: str
     DATABASE_URL: str
-    ADMIN_ID: int
+    ADMIN_USER_ID: int
     ADMIN_CHAT_ID: int
     MINI_COURSES_FILE: str
 
