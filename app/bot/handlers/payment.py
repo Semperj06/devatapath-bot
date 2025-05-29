@@ -6,10 +6,9 @@ from aiogram.filters.state import StateFilter
 
 from app.core.settings      import MINI_COURSES
 from app.bot.handlers.states import PaymentStates
-from app.keyboards.menu     import main_menu
 from app.db.base            import SessionLocal
 from app.db.models          import PaymentProof
-
+from app.keyboards.menu import main_menu
 router = Router()
 
 @router.callback_query(lambda c: c.data and c.data.startswith("pay_"))

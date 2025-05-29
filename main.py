@@ -12,42 +12,39 @@ from app.core.settings import settings
 from app.bot.handlers.menu_handlers import router as menu_router
 from app.bot.handlers.course_select import router as course_router
 from app.bot.handlers.start import router as start_router
-from app.db.base import init_db
+from app.bot import bot, dp
 from app.bot.handlers.payment import router as payment_router
-
+from app.bot.handlers.admin import router as admin_router
 
 # -------------------- Настройка бота и диспетчера --------------------
 
-# Создаём экземпляр бота: указываем токен, полученный от BotFather
 bot = Bot(token=settings.BOT_TOKEN)
-# Создаём диспетчер, который будет «ловить» все входящие обновления
 dp = Dispatcher()
 
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger(__name__)
-
-# -------------------- Функция при старте --------------------
 async def on_startup():
+    # 1) Удаляем все вебхуки (и сбрасываем очередные апдейты)
     await bot.delete_webhook(drop_pending_updates=True)
+
+    # 2) Инициализируем БД, логгеры, и т.п.
+    from app.db.base import init_db
     init_db()
+
     print("Бот запущен и готов принимать команды")
 
-# -------------------- Основная корутина --------------------
 async def main():
-    """
-    Главная точка запуска нашего бота.
-    Регистрируем роутеры и стартуем поллинг.
-    """
-    # Регистрируем роутер из модуля handlers.start, чтобы /start обрабатывался
+    # регистрируем все роутеры
     dp.include_router(start_router)
     dp.include_router(menu_router)
-    # Регистрируем наш on_startup для вывода сообщения о старте в консоль
-    dp.startup.register(on_startup)
     dp.include_router(course_router)
     dp.include_router(payment_router)
+    dp.include_router(admin_router)
+
+    # регистрируем on_startup —
+    dp.startup.register(on_startup)
+
+    # запускаем polling
     await dp.start_polling(bot)
 
-# -------------------- Запуск скрипта --------------------
 if __name__ == "__main__":
-    # asyncio.run() автоматически создаёт и закрывает event loop
+    logging.basicConfig(level=logging.WARNING)
     asyncio.run(main())
